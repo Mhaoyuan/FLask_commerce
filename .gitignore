@@ -1,6 +1,14 @@
+# python
 *.pyc
+
+# database
 migrations
+
+# vscode
 .idea
-.
+
+# docker mysql
 /mysql_data/
+
+# virtual environment
 /venv/
