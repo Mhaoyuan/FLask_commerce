@@ -1,7 +1,6 @@
 *.pyc
-Flask_Commerce/venv
 migrations
 .idea
 .
-mysql_data
-venv
+/mysql_data/
+/venv/
