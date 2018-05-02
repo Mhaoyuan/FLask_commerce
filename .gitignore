@@ -1,0 +1,6 @@
+*.pyc
+Flask_Commerce/venv
+migrations
+.idea
+.
+mysql_data

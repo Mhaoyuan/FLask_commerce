@@ -1,0 +1,34 @@
+version: '2'
+
+services:
+  mysql:
+    restart: always
+    image: mysql:5.7
+    environment:
+      - MYSQL_DATABASE=db
+      - MYSQL_ROOT_PASSWORD=demo
+      - MYSQL_USER=flask
+      - MYSQL_PASSWORD=9527
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+
+  flask-wsgi:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    ports:
+      - "5001:80"
+      - "5002:443"
+
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+

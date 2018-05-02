@@ -17,7 +17,8 @@ from app.models.product_category import Product_Category
 from app.models.prouduct_info import Product_info
 from app.models.brand_info import Brand_info
 from app.models.sku_price import Sku_price
-from flask_script import Manager, Shell
+from app.models.order_master import Order_master
+from flask_script import Manager, Shell, Server
 import MySQLdb
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -40,19 +41,19 @@ def make_shell_context():
     return dict(app= app, db=db, User=User, Role=Role, Addr = Addr,
                 Level = Level,Point_Log = Point_Log, Balance_Log = Balance_Log,
                 Login_Log = Login_Log, Supplier_Info = Supplier_Info,Product_Category = Product_Category,
-                Product_info = Product_info, Brand_info = Brand_info, Sku_price = Sku_price)
+                Product_info = Product_info, Brand_info = Brand_info, Sku_price = Sku_price,
+                Order_master = Order_master)
 manager.add_command("shell", Shell(make_context=make_shell_context))
 manager.add_command('db', MigrateCommand)
+manager.add_command("runserver", Server(host ='0.0.0.0'))
 
 @manager.command
 def db_init():
-    # connection = MySQLdb.connect(host = '3306', user = 'root', passwd = '9527')
-    # engine = create_engine('mysql+mysqldb://root:9527@127.0.0.1:3306/flask_e')
+    # connection = MySQLdb.connect(host = '3306', user = 'root', passwd = 'demo')
+    # engine = create_engine('mysql+mysqldb://root:demo@flasksql/db')
     # cursor = connection.cursor()
-    # db.create_all()
+    db.create_all()
 
-
-    pass
 
 if __name__ =='__main__':
     manager.run()

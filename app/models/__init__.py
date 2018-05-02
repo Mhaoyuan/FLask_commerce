@@ -59,3 +59,4 @@ from .supplier_info import Supplier_Info
 from .customer_addr import Addr
 from .prouduct_info import Product_info
 from .product_category import Product_Category
+from .order_master import Order_master
