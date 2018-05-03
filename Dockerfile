@@ -10,7 +10,7 @@ COPY supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY .  /var/www/app
 
 
-
+WORKDIR /var/www/app
 
 RUN mkdir -p /var/log/nginx/app /var/log/uwsgi/app /var/log/supervisor \
     && rm /etc/nginx/sites-enabled/default \
@@ -26,4 +26,4 @@ RUN cd /var/www/app \
 #    && virtualenv venv -p /usr/bin/python2.7
 
 
-CMD ["/usr/bin/supervisord"]
+CMD ["/bin/sh","start.sh"]

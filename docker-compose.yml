@@ -22,7 +22,7 @@ services:
     links:
       - mysql
     ports:
-      - "5001:80"
+      - "6888:80"
       - "5002:443"
 
   visualizer:
