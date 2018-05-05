@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 
 
@@ -12,13 +13,14 @@ from app.models.customer_level_inf import Level
 from app.models.customer_point_log import Point_Log
 from app.models.customer_balance_log import Balance_Log
 from app.models.customer_login_log import Login_Log
-from app.models.supplier_info import Supplier_Info
+from app.models.shop_info import Shop_Info
 from app.models.product_category import Product_Category
 from app.models.prouduct_info import Product_info
 from app.models.brand_info import Brand_info
 from app.models.sku_price import Sku_price
 from app.models.order_master import Order_master
 from flask_script import Manager, Shell, Server
+from flask_security import Security,SQLAlchemyUserDatastore
 import MySQLdb
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -35,12 +37,11 @@ manager = Manager(app)
 migrate = Migrate(app, db)
 
 
-
 @app.shell_context_processor
 def make_shell_context():
     return dict(app= app, db=db, User=User, Role=Role, Addr = Addr,
                 Level = Level,Point_Log = Point_Log, Balance_Log = Balance_Log,
-                Login_Log = Login_Log, Supplier_Info = Supplier_Info,Product_Category = Product_Category,
+                Login_Log = Login_Log, Shop_Info = Shop_Info,Product_Category = Product_Category,
                 Product_info = Product_info, Brand_info = Brand_info, Sku_price = Sku_price,
                 Order_master = Order_master)
 manager.add_command("shell", Shell(make_context=make_shell_context))
@@ -52,6 +53,7 @@ def db_init():
     # connection = MySQLdb.connect(host = '3306', user = 'root', passwd = 'demo')
     # engine = create_engine('mysql+mysqldb://root:demo@flasksql/db')
     # cursor = connection.cursor()
+    db.drop_all()
     db.create_all()
 
 

@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 import traceback
 from flask import jsonify, request, current_app, abort
 from flask_security import auth_token_required
 from . import api
 from app.models import User, Addr, db
 @api.route('/user/<int:id>/address', methods = ['POST', 'GET'])
-# @auth_token_required
+@auth_token_required
 def address(id):
     # request_json = request.get_json(force=1)
     # print(request_json)

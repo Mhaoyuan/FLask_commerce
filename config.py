@@ -26,7 +26,7 @@ class Config:
     WTF_CSRF_ENABLED = 0
     SECURITY_TRACKABLE = True
     SECURITY_REGISTERABLE = True
-    SECURITY_USER_IDENTITY_ATTRIBUTES = ["phone"]
+    SECURITY_USER_IDENTITY_ATTRIBUTES = ["phone","email"]
     SECURITY_SEND_REGISTER_EMAIL = 0
     SECURITY_SEND_PASSWORD_RESET_EMAIL = 0
     SECURITY_SEND_PASSWORD_RESET_NOTICE_EMAIL = 0
@@ -39,8 +39,9 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
-        'mysql+mysqldb://flask:9527@mysql/db'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or 'mysql+mysqldb://root:9527@127.0.0.1/flask_e3?charset=utf8'
+        # 'mysql+mysqldb://flask:9527@mysql/db'
+    #     'mysql+mysqldb://root:9527@127.0.0.1/flask_e'
 
 
 

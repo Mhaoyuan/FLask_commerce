@@ -1,20 +1,21 @@
+# -*- coding: utf-8 -*-
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_mail import Mail
 from flask_moment import Moment
+from flask_debugtoolbar import DebugToolbarExtension
 from config import config
 from .admin import admin
-from security import security, SQLAlchemyUserDatastore, Security
-from .models import db
+from security import  SQLAlchemyUserDatastore, Security
+from .models import db,User,Role
 
 
 bootstrap = Bootstrap()
 mail = Mail()
 moment = Moment()
-from .models import User, Role
+toolbar =DebugToolbarExtension()
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
-
-# security = Security()
+security= Security()
 def create_app(config_name):
     app = Flask(__name__)
     app.config.from_object(config[config_name])
@@ -26,6 +27,7 @@ def create_app(config_name):
     db.init_app(app)
     admin.init_app(app)
     security.init_app(app,datastore= user_datastore)
+    # toolbar.init_app(app)
 
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)

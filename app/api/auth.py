@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import request,json, Response, jsonify,abort, url_for,redirect,g
 from flask_security import login_user, auth_token_required
 from flask_security.utils import hash_password,verify_password

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from sqlalchemy.sql import func
 
 from flask_sqlalchemy import SQLAlchemy
@@ -22,7 +23,7 @@ class AppModel(db.Model):
 
         if depth:
             depth -=1
-            exclude = ["create_datetime", "update_datetime", "roles", "password",
+            exclude = ["create_datetime", "update_datetime", "role", "password",
                        "active", "confirmed", "confirmed_at", "current_login_at",
                        "login_count", "last_login_ip", "current_login_ip"]
             attrs = self.__mapper__.attrs.keys()
@@ -46,8 +47,8 @@ class AppModel(db.Model):
 
             return dictionary
 roles_users = db.Table('roles_users',
-                       db.Column('user_id', db.Integer(), db.ForeignKey('users.id')),
-                       db.Column('role_id', db.Integer(), db.ForeignKey('roles.id')))
+                       db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
+                       db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
 
 
 from .role import Role
@@ -55,8 +56,9 @@ from .user import User
 from .customer_point_log import Point_Log
 from .customer_balance_log import Balance_Log
 from .customer_login_log import Login_Log
-from .supplier_info import Supplier_Info
+from .shop_info import Shop_Info
 from .customer_addr import Addr
 from .prouduct_info import Product_info
 from .product_category import Product_Category
 from .order_master import Order_master
+

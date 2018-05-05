@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from . import db, AppModel
 
 class Sku_price(AppModel):
@@ -7,3 +8,8 @@ class Sku_price(AppModel):
     price = db.Column(db.Integer)
     product_info = db.relationship('Product_info', backref = 'sku_price', lazy = 'dynamic')
 
+    def __init__(self,mass,purer,price,product_info):
+        self.mass = mass
+        self.purer = purer
+        self.price = price
+        self.product_info = product_info

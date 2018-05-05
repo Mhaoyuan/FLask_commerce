@@ -1,8 +1,9 @@
+# -*- coding: utf-8 -*-
 from . import db, AppModel, role
 
 class Addr(AppModel):
     __tablename__ = 'customer_addr'
-    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer,db.ForeignKey('user.id'))
     name = db.Column(db.String(16))
     telephone = db.Column(db.Integer)
     country = db.Column(db.String(16))
