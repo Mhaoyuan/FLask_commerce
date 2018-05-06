@@ -35,7 +35,7 @@ class ShopModelView(AppModelView):
     can_edit =  False
     can_create = False
     can_view_details = True
-    @action('approvey', 'Approve', 'Are you sure you want to approve selected users?')
+    @action('approve', u'同意开店', 'Are you sure you want to approve selected users?')
     def action_approve(self, ids):
         try:
             query = Shop_Info.query.filter(Shop_Info.id.in_(ids))

@@ -63,7 +63,6 @@ def init_db():
         current_app.logger.error(traceback.format_exc())
         abort(500, traceback.format_exc())
 
-    
 
 
 

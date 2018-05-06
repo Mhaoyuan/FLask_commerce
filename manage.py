@@ -5,6 +5,9 @@ import os
 import sys
 import click
 from flask_migrate import Migrate, MigrateCommand
+from flask_script import Manager, Shell, Server
+from flask_security import user_registered
+from app import user_datastore
 from app import create_app, db
 from app.models.role import Role
 from app.models.user import User
@@ -19,7 +22,6 @@ from app.models.prouduct_info import Product_info
 from app.models.brand_info import Brand_info
 from app.models.sku_price import Sku_price
 from app.models.order_master import Order_master
-from flask_script import Manager, Shell, Server
 from flask_security import Security,SQLAlchemyUserDatastore
 import MySQLdb
 from sqlalchemy import create_engine
@@ -56,6 +58,18 @@ def db_init():
     db.drop_all()
     db.create_all()
 
+# def user_registered_sighandler(user,app):
+#     default_role = user_datastore.find_role("Pending")
+#     user_datastore.add_role_to_user(user, default_role)
+#     db.session.commit()
+#
+# user_registered.connect(user_registered_sighandler)
+
+@user_registered.connect_via(app)
+def user_registered_sighandler(app, user, confirm_token):
+    default_role = user_datastore.find_role("User")
+    user_datastore.add_role_to_user(user, default_role)
+    db.session.commit()
 
 if __name__ =='__main__':
     manager.run()

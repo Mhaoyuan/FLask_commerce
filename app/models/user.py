@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from flask_security import UserMixin
 from . import db, AppModel, roles_users
+from .role import Role
 from flask import current_app
 from itsdangerous import (TimedJSONWebSignatureSerializer as Serializer, BadSignature, SignatureExpired)
+
 class User(AppModel,UserMixin):
 
     # __tablename__ = 'user'
@@ -28,9 +30,7 @@ class User(AppModel,UserMixin):
     order_master = db.relationship('Order_master', backref = 'users', lazy = 'dynamic')
 
 
-
-
-    def __init__(self,email,active,password,roles):
+    def __init__(self ,email,active,password,roles  ):
         # self.phone = phone
         # self.username = username
         self.email = email

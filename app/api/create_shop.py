@@ -13,13 +13,13 @@ def create_shop():
     user = current_user._get_current_object()
     if current_user.has_role('Shop'):
         return url_for('api.get_shop')
-    # if user.shop_status == u"审核中":
-    #     return jsonify(
-    #         {
-    #             "code":202,
-    #             "message":u"审核中，请稍等"
-    #         }
-    #     )
+    if user.shop_status == u"审核中":
+        return jsonify(
+            {
+                "code":202,
+                "message":u"审核中，请稍等"
+            }
+        )
     shop_name = request.json.get("shop_name")
     shop_type = request.json.get("shop_type")
     link_man = request.json.get("link_man")
@@ -38,8 +38,6 @@ def create_shop():
     user.shop_status = u"审核中"
     shop = Shop_Info(user, shop_name, shop_type, link_man, phone_number,
                      country, state, city, address)
-    # shop.save()
-    # user.save()
     user.save()
     shop.save()
     dict = shop.to_dict(depth=1)
