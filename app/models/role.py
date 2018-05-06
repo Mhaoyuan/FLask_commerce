@@ -12,4 +12,7 @@ class Role(db.Model, RoleMixin):
         self.name = name
         self.description =description
 
+    def __repr__(self):
+        return '{}'.format(self.name)
+
 

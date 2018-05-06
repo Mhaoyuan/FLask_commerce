@@ -19,13 +19,13 @@ class User(AppModel,UserMixin):
     last_login_ip = db.Column(db.String(100))
     current_login_ip = db.Column(db.String(100))
     login_count = db.Column(db.Integer())
-    shop_status = db.Column(db.Boolean()) # 0： 未申请 1： 审核中
-    addr = db.relationship('Addr',backref = 'user', lazy = 'dynamic')
-    point_log = db.relationship('Point_Log', backref = 'user', lazy = 'dynamic')
-    balance_log = db.relationship('Balance_Log', backref = 'user', lazy = 'dynamic')
-    login_log = db.relationship('Login_Log', backref = 'user', lazy = 'dynamic')
-    shop_info = db.relationship('Shop_Info', backref = 'user',lazy = 'dynamic')
-    order_master = db.relationship('Order_master', backref = 'user', lazy = 'dynamic')
+    shop_status = db.Column(db.String(128)) # 未申请 审核中 已通过
+    addr = db.relationship('Addr',backref = 'users', lazy = 'dynamic')
+    point_log = db.relationship('Point_Log', backref = 'users', lazy = 'dynamic')
+    balance_log = db.relationship('Balance_Log', backref = 'users', lazy = 'dynamic')
+    login_log = db.relationship('Login_Log', backref = 'users', lazy = 'dynamic')
+    shop_info = db.relationship('Shop_Info', backref = 'users',lazy = 'dynamic')
+    order_master = db.relationship('Order_master', backref = 'users', lazy = 'dynamic')
 
 
 
@@ -37,13 +37,9 @@ class User(AppModel,UserMixin):
         self.active = active
         self.password = password
         self.roles =roles
-    # def __repr__(self):
-    #     super(User, self).__init__()
-    #     if self.role is None:
-    #         if self.email ==current_app.config['FLASK_ADMIN']:
-    #             self.role = Role.query.filter_by(name ='admin').first()
-    #         if self.role is None:
-    #             self.role = Role.query.filter_by(default = True).first()
+
+    def __repr__(self):
+        return '{}'.format(self.email)
 
     @staticmethod
     def generate_auth_token(self, expiration = 3600):

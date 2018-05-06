@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from . import AppModelView
-from flask_admin.form import rules
 from flask_admin.actions import action
 from app.models.user import User
 from flask import flash
@@ -51,3 +50,4 @@ class UserModelView(AppModelView):
         except Exception as ex:
             if not self.handle_view_exception(ex):
                 raise
+

@@ -2,6 +2,8 @@ from flask import request,url_for, jsonify
 from flask_security import auth_token_required, login_required, current_user
 from app.models import User, Role, Shop_Info
 from . import api
+from . import db
+
 
 
 @api.route('/shop',methods = ['POST'])
@@ -9,15 +11,15 @@ from . import api
 @auth_token_required
 def create_shop():
     user = current_user._get_current_object()
-    if current_user.has_role('Shop') :
+    if current_user.has_role('Shop'):
         return url_for('api.get_shop')
-    if user.shop_status == 1 :
-        return jsonify(
-            {
-                "code":200,
-                "message":u"审核中，请稍等"
-            }
-        )
+    # if user.shop_status == u"审核中":
+    #     return jsonify(
+    #         {
+    #             "code":202,
+    #             "message":u"审核中，请稍等"
+    #         }
+    #     )
     shop_name = request.json.get("shop_name")
     shop_type = request.json.get("shop_type")
     link_man = request.json.get("link_man")
@@ -33,12 +35,13 @@ def create_shop():
     #             "message":u"请输入正确手机号"
     #         }
     #     )
-    user.shop_status = 1
+    user.shop_status = u"审核中"
     shop = Shop_Info(user, shop_name, shop_type, link_man, phone_number,
                      country, state, city, address)
-    shop.save()
+    # shop.save()
+    # user.save()
     user.save()
-
+    shop.save()
     dict = shop.to_dict(depth=1)
     return jsonify(
         {

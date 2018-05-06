@@ -2,7 +2,7 @@
 import traceback
 from flask import Blueprint,current_app,abort
 from app.models import db
-from app import user_datastore
+from app.security import user_datastore
 from app.models import Product_Category
 api = Blueprint('api', __name__)
 

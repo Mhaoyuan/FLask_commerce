@@ -3,6 +3,7 @@ from sqlalchemy.sql import func
 
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+# from app import db
 db = SQLAlchemy()
 class AppModel(db.Model):
     __abstract__ = 1
