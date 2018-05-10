@@ -58,6 +58,22 @@ def create_shop():
 @auth_token_required
 def get_shop():
     if current_user.has_role('Shop') is False:
-        return url_for('api.create_shop')
-    return 'za'
+        next = url_for('api.create_shop')
+        return jsonify(
+            {
+                "code":400,
+                "message":u'请开通店铺,或等待审核',
+                "url":next,
+            }
+        )
+    shop = Shop_Info.query.filter_by(users = current_user).first()
+    dict = shop.to_dict(depth=1)
+    return jsonify(
+        {
+            "code":200,
+            "massage":"ok",
+            "data":dict
+
+        }
+    )
 

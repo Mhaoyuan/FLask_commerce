@@ -31,6 +31,8 @@ class Config:
     SECURITY_SEND_PASSWORD_RESET_EMAIL = 0
     SECURITY_SEND_PASSWORD_RESET_NOTICE_EMAIL = 0
     SECURITY_LOGIN_WITHOUT_CONFIRMATION = 1
+    SECURITY_LOGIN_URL = '/api/login'
+    SECURITY_REGISTER_URL = '/api/register'
 
     @staticmethod
     def init_app(app):

@@ -71,4 +71,4 @@ from . import user
 from . import auth
 from . import address
 from . import product
-from . import create_shop
+from . import shop

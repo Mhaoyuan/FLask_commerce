@@ -22,6 +22,7 @@ from app.models.prouduct_info import Product_info
 from app.models.brand_info import Brand_info
 from app.models.sku_price import Sku_price
 from app.models.order_master import Order_master
+from app.models.warehouse_product import Warehouse_Product
 from flask_security import Security,SQLAlchemyUserDatastore
 import MySQLdb
 from sqlalchemy import create_engine
@@ -45,7 +46,7 @@ def make_shell_context():
                 Level = Level,Point_Log = Point_Log, Balance_Log = Balance_Log,
                 Login_Log = Login_Log, Shop_Info = Shop_Info,Product_Category = Product_Category,
                 Product_info = Product_info, Brand_info = Brand_info, Sku_price = Sku_price,
-                Order_master = Order_master)
+                Order_master = Order_master,Warehouse_Product =Warehouse_Product)
 manager.add_command("shell", Shell(make_context=make_shell_context))
 manager.add_command('db', MigrateCommand)
 manager.add_command("runserver", Server(host ='0.0.0.0'))

@@ -31,6 +31,7 @@ class AppModel(db.Model):
             relationships = self.__mapper__.relationships.keys()
             columns = [item for item in [cols for cols in attrs if cols not in relationships] if item not in exclude]
             relationships = [item for item in self.__mapper__.relationships.keys() if item in include]
+
             dictionary = {column : getattr(self, column) for column in columns}
 
             for relationship in relationships:
@@ -62,4 +63,5 @@ from .customer_addr import Addr
 from .prouduct_info import Product_info
 from .product_category import Product_Category
 from .order_master import Order_master
+from .warehouse_product import Warehouse_Product
 

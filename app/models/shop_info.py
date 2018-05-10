@@ -33,6 +33,5 @@ class Shop_Info(AppModel):
         self.address = address
 
     def __repr__(self):
-        return '<Shop_Info %r>' % self.shop_name
-
+        return '{}'.format(self.shop_name)
 

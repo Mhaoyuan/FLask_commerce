@@ -10,8 +10,7 @@ class Product_Category(AppModel):
     category_status = db.Column(db.SmallInteger,default=1)
     product_info = db.relationship('Product_info', backref = 'category',lazy = 'dynamic')
     def __repr__(self):
-        return '<Product_CateGory %r>' % self.category_name
-
+        return '{}'.format(self.category_name)
     def __init__(self,category_name,parent_id):
         self.category_name = category_name
         self.parent_id = parent_id

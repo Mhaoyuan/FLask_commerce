@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import Blueprint, g
+from flask import Blueprint, session,escape
 from flask_security import current_user
 main = Blueprint('main', __name__)
 
@@ -9,6 +9,6 @@ def index():
     return 'hello world'
 @main.route('/user')
 def user():
-    id = current_user.id
-
-    return "{}".format(id)
+    # email = session['email']
+    # return "{}".format(email)
+    return 'hello, {}\n'.format(escape(session['user.id']))
