@@ -24,6 +24,8 @@ class AppModel(db.Model):
 
         if depth:
             depth -=1
+            # if depth==0:
+            #     include.clear()
             exclude = ["create_datetime", "update_datetime", "role", "password",
                        "active", "confirmed", "confirmed_at", "current_login_at",
                        "login_count", "last_login_ip", "current_login_ip"]
@@ -31,7 +33,7 @@ class AppModel(db.Model):
             relationships = self.__mapper__.relationships.keys()
             columns = [item for item in [cols for cols in attrs if cols not in relationships] if item not in exclude]
             relationships = [item for item in self.__mapper__.relationships.keys() if item in include]
-
+            # include = list()
             dictionary = {column : getattr(self, column) for column in columns}
 
             for relationship in relationships:
@@ -42,10 +44,14 @@ class AppModel(db.Model):
 
                     if is_list:
                         # dictionary[relationship] = [record.to_dict(depth, include) for record in related]
-                        dictionary[relationship] = [record.to_dict(depth, include) for record in related]
-
+                        # if relationship not in dictionary:
+                            dictionary[relationship] = [record.to_dict(depth, include) for record in related ]
+                        # include = list()
                     else:
-                        dictionary[relationship] = related.to_dict(depth, include)
+                        # if relationship not in dictionary:
+                            if related not in dictionary :
+                                dictionary[relationship] = related.to_dict(depth, include)
+                        # include = list()
 
             return dictionary
 roles_users = db.Table('roles_users',
@@ -60,8 +66,10 @@ from .customer_balance_log import Balance_Log
 from .customer_login_log import Login_Log
 from .shop_info import Shop_Info
 from .customer_addr import Addr
-from .prouduct_info import Product_info
+from .product_info import Product_info
 from .product_category import Product_Category
 from .order_master import Order_master
 from .warehouse_product import Warehouse_Product
+from .cart_master import Cart_master
+from .cart_detail import Cart_detail
 

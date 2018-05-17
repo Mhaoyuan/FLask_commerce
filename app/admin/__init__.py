@@ -10,10 +10,12 @@ from app.models.user import User
 from app.models.role import Role
 from app.models.shop_info import Shop_Info
 from app.models.customer_addr import Addr
-from app.models.prouduct_info import Product_info
+from app.models.product_info import Product_info
 from app.models.brand_info import Brand_info
 from app.models.sku_price import Sku_price
 from app.models.product_category import Product_Category
+from app.models.cart_master import Cart_master
+from app.models.cart_detail import Cart_detail
 # from app import admin
 class AppModelView(ModelView):
     # def is_accessible(self):
@@ -69,3 +71,5 @@ admin.add_view(ModelView(Brand_info,db.session))
 admin.add_view(ModelView(Sku_price,db.session))
 admin.add_link(AuthenticatedMenuLink(name = 'logout',
                                      endpoint='security.logout'))
+admin.add_view(ModelView(Cart_master,db.session))
+admin.add_view(ModelView(Cart_detail,db.session))

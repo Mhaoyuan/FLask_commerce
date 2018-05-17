@@ -4,9 +4,11 @@ from flask_bootstrap import Bootstrap
 from flask_mail import Mail
 from flask_moment import Moment
 from flask_debugtoolbar import DebugToolbarExtension
+from flask.ext.session import Session
 from config import config
 from app.admin import admin
 from flask_security import SQLAlchemyUserDatastore,Security
+from .session_redis import RedisSessionInterface
 from .models import db,User,Role
 from flask_admin import Admin
 
@@ -17,10 +19,12 @@ moment = Moment()
 toolbar =DebugToolbarExtension()
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security()
+sess  = Session()
 def create_app(config_name):
     app = Flask(__name__)
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
+    app.session_interface = RedisSessionInterface()
 
     bootstrap.init_app(app)
     mail.init_app(app)
@@ -29,6 +33,7 @@ def create_app(config_name):
     security.init_app(app,datastore= user_datastore)
     db.init_app(app)
     admin.init_app(app)
+    sess.init_app(app)
     # security.init_app(app)
     # toolbar.init_app(app)
 

@@ -72,3 +72,4 @@ from . import auth
 from . import address
 from . import product
 from . import shop
+from . import cart

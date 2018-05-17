@@ -29,8 +29,7 @@ def create_product():
         brand_desc = request.json.get("publish_status")
         current_cnt = request.json.get("current_cnt")
 
-        sku = Sku_price(mass, purer, price)
-        sku.save()
+
         category = Product_Category.query.get_or_404(category_id)
         warehouse = Warehouse_Product(current_cnt)
         warehouse.save()
@@ -38,9 +37,12 @@ def create_product():
         brand.save()
 
         items = Product_info(product_name, product_enname,
-                             publish_status, brand,category,shop,sku, warehouse)
+                             publish_status, brand,category,shop,warehouse)
 
         items.save()
+
+        sku = Sku_price(mass, purer, price,items )
+        sku.save()
         # return items.to_dict(depth=2)
         # return items.to_dict(depth=1)
         dict = items.to_dict(depth=2,include=['sku_price', 'warehouse_info',

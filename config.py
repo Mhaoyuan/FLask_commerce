@@ -1,4 +1,5 @@
 import os
+import redis
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 
@@ -33,6 +34,10 @@ class Config:
     SECURITY_LOGIN_WITHOUT_CONFIRMATION = 1
     SECURITY_LOGIN_URL = '/api/login'
     SECURITY_REGISTER_URL = '/api/register'
+
+    SESSION_TYPE = 'redis'
+    # SESSION_KEY_SIGNER = True
+    SESSION_REDIS = redis.from_url('127.0.0.1:6379')
 
     @staticmethod
     def init_app(app):

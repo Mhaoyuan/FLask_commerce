@@ -28,6 +28,8 @@ class User(AppModel,UserMixin):
     login_log = db.relationship('Login_Log', backref = 'users', lazy = 'dynamic')
     shop_info = db.relationship('Shop_Info', backref = 'users',lazy = 'dynamic')
     order_master = db.relationship('Order_master', backref = 'users', lazy = 'dynamic')
+    cart_master = db.relationship('Cart_master', backref = 'users', lazy = 'dynamic')
+
 
 
     def __init__(self ,email,active,password,roles  ):
